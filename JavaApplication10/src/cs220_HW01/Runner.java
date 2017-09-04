@@ -5,6 +5,8 @@
  */
 package cs220_HW01;
 
+import java.io.*;
+
 /**
  *
  * @author Nicholas Bohm
@@ -14,7 +16,8 @@ public class Runner {
     public Runner(){
         System.out.println("Runner Start ...");
         SocketHandler blackburn = new SocketHandler("10.100.1.239", 255);
-        System.out.println(blackburn.getConnectionStat());
+            System.out.println(blackburn.getMessageRecived());
+        
     }
     
     
