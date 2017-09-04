@@ -21,8 +21,10 @@ public class SocketHandler {
             connectedSocket = new Socket(address, port);
             PrintStream outGoing = new PrintStream(connectedSocket.getOutputStream());
             outGoing.println();
+            
             InputStreamReader inputStream = new InputStreamReader(connectedSocket.getInputStream());
             BufferedReader inComing = new BufferedReader(inputStream);
+            this.messageFromServer = inComing.readLine();
         } catch (UnknownHostException uh) {
             System.out.println("Error UnknownHostException, Connection refused!!");
             uh.printStackTrace();

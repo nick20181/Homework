@@ -14,10 +14,12 @@ import java.io.*;
 public class Runner {
     
     public Runner(){
-        System.out.println("Runner Start ...");
+        //System.out.println("Runner Start ...");
+        //SocketHandler blackburn = new SocketHandler("10.100.1.239", 255);
+        //    System.out.println(blackburn.getMessageRecived());
+        System.out.println("Welcome to Blackburn Computer Science File Server");
         SocketHandler blackburn = new SocketHandler("10.100.1.239", 255);
-            System.out.println(blackburn.getMessageRecived());
-        
+        System.out.println("Enter a number to download or 0 to exit");
     }
     
     
