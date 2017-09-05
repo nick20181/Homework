@@ -10,48 +10,16 @@ import java.net.*;
 public class SocketHandler {
 
     private Socket connectedSocket;
-    private String messageFromServer;
+
     /**
      * connects to the server without sending a message
+     *
      * @param address
-     * @param port 
+     * @param port
      */
     public SocketHandler(String address, int port) {
         try {
-            connectedSocket = new Socket(address, port);
-            PrintStream outGoing = new PrintStream(connectedSocket.getOutputStream());
-            outGoing.println();
-            
-            InputStreamReader inputStream = new InputStreamReader(connectedSocket.getInputStream());
-            BufferedReader inComing = new BufferedReader(inputStream);
-            this.messageFromServer = inComing.readLine();
-        } catch (UnknownHostException uh) {
-            System.out.println("Error UnknownHostException, Connection refused!!");
-            uh.printStackTrace();
-            System.exit(0);
-        } catch (IOException io) {
-            System.out.println("Error Io Exception, Connection refused!!");
-            io.printStackTrace();
-            System.exit(0);
-        }
-
-    }
-    /**
-     * sends a message to the server 
-     * @param address
-     * @param port
-     * @param toSend 
-     */
-    public SocketHandler(String address, int port, String toSend) {
-        try {
-            connectedSocket = new Socket(address, port);
-            
-            PrintStream outGoing = new PrintStream(connectedSocket.getOutputStream());
-            outGoing.println(toSend);
-            
-            InputStreamReader inputStream = new InputStreamReader(connectedSocket.getInputStream());
-            BufferedReader inComing = new BufferedReader(inputStream);
-            messageFromServer = inComing.readLine();
+            this.connectedSocket = new Socket(address, port);
             
         } catch (UnknownHostException uh) {
             System.out.println("Error UnknownHostException, Connection refused!!");
@@ -68,8 +36,36 @@ public class SocketHandler {
      * gets the message from the server
      * @return 
      */
-    public String getMessageRecived(){
-        return this.messageFromServer;
+    public String inBound() {
+        try {
+            InputStreamReader inputStream = new InputStreamReader(this.connectedSocket.getInputStream());
+            BufferedReader inComing = new BufferedReader(inputStream);
+            return inComing.readLine();
+        } catch (IOException io) {
+            System.out.println("Error Io Exception, Connection refused!!");
+            io.printStackTrace();
+            System.exit(0);
+            return null;
+        }
     }
 
+    /**
+     * sends a msg to the server
+     *
+     * @param outStream
+     */
+    public String sendMsg(String outStream) {
+        try {
+            PrintStream outGoing = new PrintStream(this.connectedSocket.getOutputStream());
+            outGoing.println(outStream);
+            return outStream;
+        } catch (IOException io) {
+            System.out.println("Error Io Exception, Connection refused!!");
+            io.printStackTrace();
+            System.exit(0);
+            return "";
+        }
+
+    }
 }
+
