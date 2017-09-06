@@ -27,6 +27,7 @@ public class ResponseHandler {
                 return toReturn;
             } else if (command.contains("GET")) {
                 //gets a file
+                
                 return "Download Complete!";
             } else if (command.equals("EXIT")) {
                 return "Exiting!";

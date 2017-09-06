@@ -52,8 +52,6 @@ public class SocketHandler {
             BufferedReader inComing = new BufferedReader(inputStream);
             return inComing.readLine();
         } catch (IOException io) {
-            System.out.println("Error Io Exception, Connection refused!!");
-            io.printStackTrace();
             System.exit(0);
             return null;
         }
@@ -70,8 +68,6 @@ public class SocketHandler {
             outGoing.println(outStream);
             return outStream;
         } catch (IOException io) {
-            System.out.println("Error Io Exception, Connection refused!!");
-            io.printStackTrace();
             System.exit(0);
             return "";
         }

@@ -23,7 +23,7 @@ public class Runner {
                 blackburn.inBound() + blackburn.inBound()));
         System.out.println("Enter a number to download or 0 to exit");
         this.userInput = this.input.nextLine();
-        while(true) {
+        while (true) {
             if (Integer.parseInt(this.userInput) == 0) {
                 System.out.println("Shutting Down. ");
                 blackburn.closeSocket();
@@ -33,13 +33,15 @@ public class Runner {
                     Integer.parseInt(this.userInput);
                     this.command = "GET " + this.text.findNumber(
                             controller.handleReponse(blackburn.sendMsg("LIST"),
-                                    blackburn.inBound() + blackburn.inBound()), userInput);
+                            blackburn.inBound() + blackburn.inBound()),
+                            this.userInput);
                     controller.handleReponse(this.command, blackburn.inBound()
                             + blackburn.inBound());
                 } catch (NumberFormatException e) {
                     System.out.println("You did not enter a number associated to "
                             + "a File please try again!");
-                    System.out.println(controller.handleReponse(blackburn.sendMsg("LIST"),
+                    System.out.println(
+                            controller.handleReponse(blackburn.sendMsg("LIST"),
                             blackburn.inBound() + blackburn.inBound()));
                     System.out.println("Enter a number to download or 0 to exit");
                     this.userInput = this.input.nextLine();
@@ -50,13 +52,13 @@ public class Runner {
 
     public Runner(int num) {
         TextHandler t = new TextHandler();
-        System.out.println(t.findNumber("1. Nick.txt\n2. Emily.txt\n3. Adam.jpg", "2"));
-        
+        System.out.println(t.findNumber("1. Nick.txt\n2. 122312312.txt\n3. Adam.jpg", "2"));
+
     }
 
     public static void main(String[] args) {
-        // new Runner();
-        new Runner(1);
+        new Runner();
+        //new Runner(1);
     }
 
 }

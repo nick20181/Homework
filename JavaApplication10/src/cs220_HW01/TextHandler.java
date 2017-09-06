@@ -24,11 +24,10 @@ public class TextHandler {
         String[] fristCut;
         int locationOfNumber;
         for(int i = 0;i != start.length(); i++){
-            if(find.equals(start.charAt(i))){
+            if(find.equals(start.charAt(i) + "")){
                 locationOfNumber = i;
                 
-            fristCut = cutString(start, start.charAt(locationOfNumber)
-                    + "");
+            fristCut = cutString(start, start.charAt(locationOfNumber) + ". ");
             
             for(int y = 0; y != fristCut[1].length(); y++ ){
                 if(Character.isDigit(fristCut[1].charAt(y))){
