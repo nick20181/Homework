@@ -33,6 +33,16 @@ public class SocketHandler {
 
     }
     /**
+     * Closes the socket connection.
+     */
+    public void closeSocket(){
+        try{
+        this.connectedSocket.close();
+        } catch (IOException io) {
+            System.exit(0);
+        }
+    }
+    /**
      * gets the message from the server
      * @return 
      */

@@ -7,7 +7,7 @@ import java.io.*;
  * @author Nicholas Bohm
  */
 public class ResponseHandler {
-
+    private TextHandler text = new TextHandler();
     public ResponseHandler() {
 
     }
@@ -17,8 +17,14 @@ public class ResponseHandler {
             return "";
         } else if (response.contains("01")) {
             if (command.equals("LIST")) {
-                //break up list
-                return "List!!";
+                response = text.cutString(response, "01 OK ")[1];
+                String toReturn;
+                String[] list = text.cutString(response, ", ");
+                toReturn = "1. " + list[0] + "\n";
+                for(int i = 1; i != list.length; i++){
+                    toReturn =  toReturn + (i + 1) + ". " + list[i] + "\n";
+                }
+                return toReturn;
             } else if (command.contains("GET")) {
                 //gets a file
                 return "Download Complete!";
