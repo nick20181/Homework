@@ -19,7 +19,28 @@ public class TextHandler {
         return before.split(target);
     }
     
-    public String findString(String start, String find){
-        return "";
+    public String findNumber(String start, String find){
+        String[] secoundCut;
+        String[] fristCut;
+        int locationOfNumber;
+        for(int i = 0;i != start.length(); i++){
+            if(find.equals(start.charAt(i))){
+                locationOfNumber = i;
+                
+            fristCut = cutString(start, start.charAt(locationOfNumber)
+                    + "");
+            
+            for(int y = 0; y != fristCut[1].length(); y++ ){
+                if(Character.isDigit(fristCut[1].charAt(y))){
+                    locationOfNumber = y;
+                }
+            }
+            
+            secoundCut = cutString(fristCut[1], "\n" + fristCut[1].charAt(locationOfNumber) + ". ");
+            return secoundCut[0];        
+            }
+        }
+       
+        return "Could Not Find That String";
     }
 }

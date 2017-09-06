@@ -31,7 +31,7 @@ public class Runner {
             } else {
                 try {
                     Integer.parseInt(this.userInput);
-                    this.command = "GET " + this.text.findString(
+                    this.command = "GET " + this.text.findNumber(
                             controller.handleReponse(blackburn.sendMsg("LIST"),
                                     blackburn.inBound() + blackburn.inBound()), userInput);
                     controller.handleReponse(this.command, blackburn.inBound()
@@ -49,7 +49,9 @@ public class Runner {
     }
 
     public Runner(int num) {
-        System.out.println(Integer.parseInt("hi"));
+        TextHandler t = new TextHandler();
+        System.out.println(t.findNumber("1. Nick.txt\n2. Emily.txt\n3. Adam.jpg", "2"));
+        
     }
 
     public static void main(String[] args) {
