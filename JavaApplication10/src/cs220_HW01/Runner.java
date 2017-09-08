@@ -12,16 +12,24 @@ public class Runner {
     private Scanner input = new Scanner(System.in);
     private String userInput;
     private TextHandler text = new TextHandler();
-
+    
     public Runner(int num) {
         SocketHandler blackburn = new SocketHandler("10.100.1.239", 255);
-
-        blackburn.revceiveString();
+        
+        if(blackburn.revceiveString().equalsIgnoreCase("00 HELLO")){
+            System.out.println("Connection Established!");
+        } else {
+            System.out.println("Connection Refused!");
+            System.exit(0);
+        }
 
         blackburn.sendCommand("LIST");
-        blackburn.revceiveString();
+        if(!blackburn.revceiveString().contains("01 OK")){
+            System.out.println("Error Please try again!");
+            System.exit(0);
+        }
 
-        String[] s = text.cutString(blackburn.revceiveString(), ", ");
+        String[] s = blackburn.revceiveString().split(", ");
         System.out.println("Welcome to Blackburn's File server!");
         for (int i = 0; i != s.length; i++) {
             System.out.println((i + 1) + ". " + s[i]);

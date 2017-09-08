@@ -24,9 +24,9 @@ public class SocketHandler {
             InputStreamReader ir = new InputStreamReader(this.currentSocket.getInputStream());
             this.bufferInput = new BufferedReader(ir);
         } catch (UnknownHostException e) {
-            System.out.println("SH UHE");
+           // System.out.println("SH UHE");
         } catch (IOException ex) {
-            System.out.println("SH IOE");
+           // System.out.println("SH IOE");
         }
     }
 
