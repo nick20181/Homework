@@ -11,54 +11,72 @@ public class Runner {
 
     private Scanner input = new Scanner(System.in);
     private String userInput;
-    private String command;
     private TextHandler text = new TextHandler();
 
-    public Runner() {
-        ResponseHandler controller = new ResponseHandler();
-        System.out.println("Welcome to Blackburn Computer Science File Server");
+    public Runner(int num) {
         SocketHandler blackburn = new SocketHandler("10.100.1.239", 255);
 
-        System.out.println(controller.handleReponse(blackburn.sendMsg("LIST"),
-                blackburn.inBound() + blackburn.inBound()));
-        System.out.println("Enter a number to download or 0 to exit");
-        this.userInput = this.input.nextLine();
-        while (true) {
-            if (Integer.parseInt(this.userInput) == 0) {
-                System.out.println("Shutting Down. ");
-                blackburn.closeSocket();
-                System.exit(0);
-            } else {
-                try {
-                    Integer.parseInt(this.userInput);
-                    this.command = "GET " + this.text.findNumber(
-                            controller.handleReponse(blackburn.sendMsg("LIST"),
-                            blackburn.inBound() + blackburn.inBound()),
-                            this.userInput);
-                    controller.handleReponse(this.command, blackburn.inBound()
-                            + blackburn.inBound());
-                } catch (NumberFormatException e) {
-                    System.out.println("You did not enter a number associated to "
-                            + "a File please try again!");
-                    System.out.println(
-                            controller.handleReponse(blackburn.sendMsg("LIST"),
-                            blackburn.inBound() + blackburn.inBound()));
-                    System.out.println("Enter a number to download or 0 to exit");
-                    this.userInput = this.input.nextLine();
-                }
-            }
+        blackburn.revceiveString();
+
+        blackburn.sendCommand("LIST");
+        blackburn.revceiveString();
+
+        String[] s = text.cutString(blackburn.revceiveString(), ", ");
+        System.out.println("Welcome to Blackburn's File server!");
+        for (int i = 0; i != s.length; i++) {
+            System.out.println((i + 1) + ". " + s[i]);
         }
+        System.out.println("Please enter a number or 0 to exit");
+        this.userInput = input.next();
+
+        if (Integer.parseInt(this.userInput) != 0) {
+            blackburn.sendCommand("GET " + s[Integer.parseInt(this.userInput) - 1]);
+        }
+        String msg = blackburn.revceiveString();
+        String newmsg = msg.charAt(6) + "";
+        for (int x = 7; x != msg.length(); x++) {
+            newmsg = newmsg + msg.charAt(x);
+        }
+
+        blackburn.reciveFile(Integer.parseInt(newmsg), s[Integer.parseInt(this.userInput) - 1]);
+        System.out.println("");
+
+        blackburn.close();
     }
+    
+    public Runner() {
+        SocketHandler padma = new SocketHandler("10.15.1.21", 255);
 
-    public Runner(int num) {
-        TextHandler t = new TextHandler();
-        System.out.println(t.findNumber("1. Nick.txt\n2. 122312312.txt\n3. Adam.jpg", "2"));
+        padma.revceiveString();
 
+        padma.sendCommand("LIST");
+        padma.revceiveString();
+
+        String[] s = text.cutString(padma.revceiveString(), ", ");
+        System.out.println("Welcome to Blackburn's File server!");
+        for (int i = 0; i != s.length; i++) {
+            System.out.println((i + 1) + ". " + s[i]);
+        }
+        System.out.println("Please enter a number or 0 to exit");
+        this.userInput = input.next();
+
+        if (Integer.parseInt(this.userInput) != 0) {
+            padma.sendCommand("GET " + s[Integer.parseInt(this.userInput) - 1]);
+        }
+        String msg = padma.revceiveString();
+        String newmsg = msg.charAt(6) + "";
+        for (int x = 7; x != msg.length(); x++) {
+            newmsg = newmsg + msg.charAt(x);
+        }
+
+        padma.reciveFile(Integer.parseInt(newmsg), s[Integer.parseInt(this.userInput) - 1]);
+        System.out.println("");
+
+        padma.close();
     }
 
     public static void main(String[] args) {
         new Runner();
-        //new Runner(1);
     }
 
 }

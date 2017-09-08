@@ -23,6 +23,7 @@ public class TextHandler {
         String[] secoundCut;
         String[] fristCut;
         int locationOfNumber;
+        
         for(int i = 0;i != start.length(); i++){
             if(find.equals(start.charAt(i) + "")){
                 locationOfNumber = i;
@@ -36,6 +37,7 @@ public class TextHandler {
             }
             
             secoundCut = cutString(fristCut[1], "\n" + fristCut[1].charAt(locationOfNumber) + ". ");
+                System.out.println(secoundCut[0]);
             return secoundCut[0];        
             }
         }
