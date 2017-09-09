@@ -38,9 +38,9 @@ public class SocketHandler {
         try {
             byte[] buffer = new byte[fileSize];
             this.incoming.readFully(buffer);
-            new File("\\..\\Downloads");
-            new FileOutputStream("Downloads\\..\\" + nameOfFile);
-
+            File dir = new File("Downloads");
+            dir.mkdir();
+            new FileOutputStream(dir + "\\" + nameOfFile);
         } catch (IOException ex) {
             ex.printStackTrace();
             System.out.println("RF IOE");
