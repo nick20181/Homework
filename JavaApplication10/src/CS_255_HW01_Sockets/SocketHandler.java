@@ -1,4 +1,4 @@
-package cs220_HW01;
+package CS_255_HW01_Sockets;
 
 import java.io.*;
 import java.net.*;
